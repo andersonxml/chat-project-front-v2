@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import AuthenticationPage from './pages/AuthenticationPage.vue';
-
+import { RouterView } from 'vue-router';
 
 </script>
 
 <template>
-  <AuthenticationPage/>
+  <RouterView/>
 </template>
