@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Building2, LogOut, Menu, MessageSquare, Search, Settings, Shield, Users } from '@lucide/vue';
+import { Building2, LogOut, Menu, MessageSquare, Search, Settings, Shield, Users, X } from '@lucide/vue';
 import { ref } from 'vue';
+import ChatContacts from './ChatContacts.vue';
 
 const showSidebarNavigation = ref(false);
 
@@ -29,7 +30,8 @@ const showSidebarNavigation = ref(false);
                             <div class="w-8 h-8 bg-[#1e40af] rounded-lg flex items-center justify-center">
                                 <Building2 class="w-5 h-5 text-white" strokeWidth={2.5} />
                             </div>
-                            <span class="text-[14px] text-[#0f172a]">Chat Corporativo</span>
+                            <span class="text-[14px] flex-1 text-[#0f172a]">Chat Corporativo</span>
+                            <X v-on:click="showSidebarNavigation = false" class="h-4"/>
                         </div>
                     </div>
                     <!-- Profile -->
@@ -93,6 +95,11 @@ const showSidebarNavigation = ref(false);
                     <input placeholder="Buscar conversas." class="flex flex-1 py-1 outline-0 px-2 text-[14px]"
                         type="text">
                 </div>
+            </div>
+
+            <!-- body -->
+            <div class="flex-1 flex">
+                <ChatContacts/>
             </div>
         </section>
     </nav>
