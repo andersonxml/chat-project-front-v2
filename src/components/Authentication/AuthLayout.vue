@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Building2 } from '@lucide/vue';
 import AuthForm from './AuthForm.vue';
+import AuthInfo from './AuthInfo.vue';
 
 </script>
 

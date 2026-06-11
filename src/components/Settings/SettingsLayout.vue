@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { ArrowLeft, Bell, Lock, User } from '@lucide/vue';
+import { Bell, Lock, User } from '@lucide/vue';
+import ButtonBack from '../ButtonBack.vue';
+import SettingsPerfil from './SettingsPerfil.vue';
+import SettingsSecurity from './SettingsSecurity.vue';
+import SettingsNotification from './SettingsNotification.vue';
 
 </script>
 
@@ -7,109 +11,19 @@ import { ArrowLeft, Bell, Lock, User } from '@lucide/vue';
     <main class="w-full h-auto bg-[#f8fafc] py-5">
         <div class="max-w-5xl mx-auto py-6">
             <div class="mb-8">
-                <button
-                    class="flex items-center gap-2 text-[14px] text-[#64748b] hover:text-[#0f172a] transition-colors mb-4">
-                    <ArrowLeft class="w-4 h-4" />
-                    Voltar
-                </button>
+                <ButtonBack/>
                 <h1 class="text-[28px] text-[#0f172a] mb-2">Configurações</h1>
                 <p class="text-[14px] text-[#64748b]">
                     Gerencie suas preferências e configurações da conta
                 </p>
             </div>
         </div>
-
         <!-- Perfil -->
-        <div class="bg-white max-w-5xl mx-auto border border-[#e8e8e8] rounded-lg mb-6">
-            <div class="p-6 border-b border-[#e8e8e8]">
-                <div class="flex items-center gap-3">
-                    <User class="w-5 h-5 text-[#64748b]" />
-                    <h2 class="text-[18px] text-[#0f172a]">Perfil</h2>
-                </div>
-            </div>
-            <div class="p-6 space-y-5">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-20 h-20 rounded-full bg-[#1e40af] flex items-center justify-center text-white text-[24px]">
-                        V
-                    </div>
-                    <button
-                        class="px-4 py-2 bg-[#f8fafc] text-[#0f172a] text-[14px] border border-[#e2e8f0] hover:bg-[#f1f5f9] transition-colors">
-                        Alterar foto
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="text-[13px] text-[#475569] block">Nome</label>
-                        <input type="text" defaultValue="teste"
-                            class="w-full px-4 py-2.5 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af] transition-colors" />
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[13px] text-[#475569] block">Cargo</label>
-                        <input type="text" defaultValue="teste"
-                            class="w-full px-4 py-2.5 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af] transition-colors" />
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-[13px] text-[#475569] block">Email</label>
-                    <input type="email" defaultValue="teste@empresa.com"
-                        class="w-full px-4 py-2.5 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af] transition-colors" />
-                </div>
-            </div>
-        </div>
+        <SettingsPerfil/>
         <!-- Notification -->
-        <div class="bg-white max-w-5xl mx-auto border border-[#e8e8e8] rounded-lg mb-6">
-            <div class="p-6 border-b border-[#e8e8e8]">
-                <div class="flex items-center gap-3">
-                    <Bell class="w-5 h-5 text-[#64748b]" />
-                    <h2 class="text-[18px] text-[#0f172a]">Notificações</h2>
-                </div>
-            </div>
-            <div class="p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-[14px] text-[#0f172a] mb-1">Notificações push</p>
-                        <p class="text-[13px] text-[#64748b]">Receba notificações de novas mensagens</p>
-                    </div>
-                    <button>
-                        <div class="w-5 h-5 bg-white rounded-full shadow-sm" />
-                    </button>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-[14px] text-[#0f172a] mb-1">Sons</p>
-                        <p class="text-[13px] text-[#64748b]">Reproduzir som ao receber mensagens</p>
-                    </div>
-                    <button>
-                        <div class="w-5 h-5 bg-white rounded-full shadow-sm" />
-                    </button>
-                </div>
-            </div>
-        </div>
+        <SettingsNotification/>
         <!-- Security -->
-
-        <div class="bg-white max-w-5xl mx-auto border border-[#e8e8e8] rounded-lg mb-6">
-            <div class="p-6 border-b border-[#e8e8e8]">
-                <div class="flex items-center gap-3">
-                    <Lock class="w-5 h-5 text-[#64748b]" />
-                    <h2 class="text-[18px] text-[#0f172a]">Segurança</h2>
-                </div>
-            </div>
-            <div class="p-6 space-y-4">
-                <button class="w-full text-left px-4 py-3 border border-[#e2e8f0] hover:bg-[#f8fafc] transition-colors">
-                    <p class="text-[14px] text-[#0f172a] mb-1">Alterar senha</p>
-                    <p class="text-[13px] text-[#64748b]">Última alteração há 3 meses</p>
-                </button>
-
-                <button class="w-full text-left px-4 py-3 border border-[#e2e8f0] hover:bg-[#f8fafc] transition-colors">
-                    <p class="text-[14px] text-[#0f172a] mb-1">Sessões ativas</p>
-                    <p class="text-[13px] text-[#64748b]">Gerencie dispositivos conectados</p>
-                </button>
-            </div>
-        </div>
+        <SettingsSecurity/>
         <!-- Save -->
         <div class="flex gap-3 max-w-5xl mx-auto">
             <button class="px-6 py-3 bg-[#1e40af] text-white text-[14px] hover:bg-[#1e3a8a] transition-colors">

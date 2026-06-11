@@ -15,7 +15,7 @@ const showSidebarNavigation = ref(false);
             showSidebarNavigation
                 ? 'pointer-events-auto'
                 : 'pointer-events-none',
-            'absolute w-full h-full z-10'
+            'absolute w-full h-full z-15'
         ]">
             <div class="w-full h-full relative">
                 <div v-if="showSidebarNavigation" v-on:click="showSidebarNavigation = false"
@@ -46,26 +46,26 @@ const showSidebarNavigation = ref(false);
                     </div>
                     <!-- Menus -->
                     <div class="space-y-1 flex flex-col px-6">
-                        <button
+                        <a href="/chat"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <MessageSquare class="w-5 h-5" />
                             <span>Conversas</span>
-                        </button>
-                        <button
+                        </a>
+                        <a href="/settings"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Settings class="w-5 h-5" />
                             <span>Configurações</span>
-                        </button>
-                        <button
+                        </a>
+                        <a href="/admin"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Shield class="w-5 h-5" />
                             <span>Painel Admin</span>
-                        </button>
-                        <button
+                        </a>
+                        <a href="/users"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Users class="w-5 h-5" />
                             <span>Usuários</span>
-                        </button>
+                        </a>
                     </div>
                     <!-- Logout -->
 
