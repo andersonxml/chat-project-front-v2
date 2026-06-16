@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { Shield } from '@lucide/vue';
 import { ref } from 'vue';
-import { postLogin } from '../../api/ApiAuthentication';
+import { UseAuth } from '../../composables/useAuth';
 
+const { login } = UseAuth();
 const email = ref('');
 const password = ref('');
 const credentialsErro = ref(false)
 
-async function login() {
+async function emitLogin() {
   credentialsErro.value = false
   if(!email.value || !password.value) {
     credentialsErro.value = true
   }
-  const result = await postLogin({email: email.value, password: password.value})
+  await login({email: email.value, password: password.value})
 
-  console.log(result);
-  
   email.value = ''
   password.value = ''
 }
@@ -54,7 +53,7 @@ async function login() {
 
               <p v-show="credentialsErro" class="text-[12px] animate-pulse text-amber-500">Verifique as credenciais de acesso.</p>
 
-              <button @click="login"
+              <button @click="emitLogin"
                 class="w-full py-3 bg-[#1e40af] text-white text-[14px] hover:bg-[#1e3a8a] transition-colors mt-8"
               >
                 Acessar sistema
