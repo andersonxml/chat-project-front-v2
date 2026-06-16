@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { Shield } from '@lucide/vue';
 import { ref } from 'vue';
+import { postLogin } from '../../api/ApiAuthentication';
 
 const email = ref('');
 const password = ref('');
 const credentialsErro = ref(false)
 
-function login() {
+async function login() {
   credentialsErro.value = false
   if(!email.value || !password.value) {
     credentialsErro.value = true
   }
+  const result = await postLogin({email: email.value, password: password.value})
+
+  console.log(result);
+  
   email.value = ''
   password.value = ''
 }
