@@ -1,7 +1,20 @@
 import type { LoginDTO } from "../dtos/AuthDTO";
-import { router } from "../routes";
 
-export async function postLogin(data: LoginDTO) {
+interface LoginResponse {
+    accessToken: string,
+    user: {
+        id: number,
+        email: string,
+        name: string,
+    }
+}
+const STORAGE_KEYS = {
+    NAME: 'name',
+    EMAIL: 'email',
+    TOKEN: 'token'
+} as const
+
+export async function postLogin(data: LoginDTO): Promise<LoginResponse | false | undefined> {
     try {
         const result = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
             method: 'POST',
@@ -14,22 +27,18 @@ export async function postLogin(data: LoginDTO) {
             })
         })
 
-        if(result.status === 401) {
-            
-        }
+        if (!result.ok) return false;
 
-        const resultData = await result.json();
+        const resultData: LoginResponse = await result.json();
 
-        localStorage.setItem('name', resultData.user.name);
-        localStorage.setItem('email', resultData.user.email);
-        localStorage.setItem('token', resultData.accessToken);
-        
+        localStorage.setItem(STORAGE_KEYS.NAME, resultData.user.name)
+        localStorage.setItem(STORAGE_KEYS.EMAIL, resultData.user.email)
+        localStorage.setItem(STORAGE_KEYS.TOKEN, resultData.accessToken)
 
-        if(result.ok) {
-            router.push('/chat')
-        }
         return resultData
     } catch (error) {
-
+        if (error instanceof Error) {
+            console.log(error.message)
+        }
     }
 }
