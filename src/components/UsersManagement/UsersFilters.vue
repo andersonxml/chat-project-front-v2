@@ -1,5 +1,20 @@
 <script setup lang="ts">
 import { Edit, Mail, Search, UserX } from '@lucide/vue';
+import { UseUsers } from '../../composables/useUsers';
+import { onMounted, ref } from 'vue';
+
+const { findUsers } = UseUsers();
+
+const users = ref();
+
+async function findAllUsers() {
+    const chama = await findUsers();
+
+    users.value = chama
+}
+onMounted(() => {
+    findAllUsers()
+})
 
 </script>
 
@@ -60,22 +75,22 @@ import { Edit, Mail, Search, UserX } from '@lucide/vue';
                     </tr>
                 </thead>
                 <tbody>
-                    <tr key={user.id} class="border-b border-[#f1f5f9] hover:bg-[#f8fafc] transition-colors">
+                    <tr v-for="u in users" class="border-b border-[#f1f5f9] hover:bg-[#f8fafc] transition-colors">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-10 h-10 rounded-full bg-[#cbd5e1] flex items-center justify-center text-[14px] text-[#475569]">
                                     n
                                 </div>
-                                <span class="text-[14px] text-[#0f172a]">name</span>
+                                <span class="text-[14px] text-[#0f172a]">{{ u.name }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="text-[14px] text-[#64748b]">email</span>
+                            <span class="text-[14px] text-[#64748b]">{{ u.email }}</span>
                         </td>
                         <td class="px-6 py-4">
                             <span class="px-2 py-1 rounded-full text-[12px]">
-                                role
+                                {{ u.role }}
                             </span>
                         </td>
                         <td class="px-6 py-4">
