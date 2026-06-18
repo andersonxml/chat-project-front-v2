@@ -9,6 +9,7 @@ interface LoginResponse {
     }
 }
 const STORAGE_KEYS = {
+    ID: 'id',
     NAME: 'name',
     EMAIL: 'email',
     TOKEN: 'token'
@@ -16,7 +17,7 @@ const STORAGE_KEYS = {
 
 export async function postLogin(data: LoginDTO): Promise<LoginResponse | false | undefined> {
     try {
-        const result = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+        const result = await fetch(`/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,6 +32,7 @@ export async function postLogin(data: LoginDTO): Promise<LoginResponse | false |
 
         const resultData: LoginResponse = await result.json();
 
+        localStorage.setItem(STORAGE_KEYS.ID, String(resultData.user.id))
         localStorage.setItem(STORAGE_KEYS.NAME, resultData.user.name)
         localStorage.setItem(STORAGE_KEYS.EMAIL, resultData.user.email)
         localStorage.setItem(STORAGE_KEYS.TOKEN, resultData.accessToken)
@@ -40,5 +42,20 @@ export async function postLogin(data: LoginDTO): Promise<LoginResponse | false |
         if (error instanceof Error) {
             console.log(error.message)
         }
+    }
+}
+
+export async function refreshToken(id: number) {
+    try {
+        const result = await fetch(`/api/auth/refresh/${id}`, {
+            method: 'POST',
+            credentials: "include"
+        })
+        // console.log(result);
+        const data = await result.json();
+        console.log(data);
+        return data
+    } catch (error) {
+
     }
 }

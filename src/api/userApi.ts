@@ -1,3 +1,5 @@
+import { refreshToken } from "./authApi";
+
 interface UsersResponse {
     name: string,
     email: string,
@@ -8,14 +10,20 @@ interface UsersResponse {
 export async function getUsers() {
     try {
         const accessToken = localStorage.getItem('token');
-        const result = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
+        const user_id = localStorage.getItem('id');
+        const result = await fetch(`/api/users`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
             }
         })
-        if (!result.ok) return false;
+
+        if (result.status === 401) {
+            const token = await refreshToken(Number(user_id));
+
+            localStorage.setItem('token', token);
+        }
 
         const resultData: UsersResponse = await result.json();
 

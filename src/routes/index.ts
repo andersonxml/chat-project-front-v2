@@ -9,7 +9,11 @@ import { AuthMiddleware } from '../shared/middlewares/auth.middleware.ts'
 
 const routes = [
   { path: '/', component: AuthenticationPage },
-  { path: '/chat', component: ChatPage, meta: { requiresAuth: true }},
+  { path: '/chat', component: ChatPage, meta: 
+    { 
+      requiresAuth: true 
+    }
+  },
   { path: '/settings', component: SettingsPage },
   { path: '/admin', component: AdminPage },
   { path: '/users', component: UsersLayout },

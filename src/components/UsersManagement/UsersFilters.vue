@@ -8,9 +8,9 @@ const { findUsers } = UseUsers();
 const users = ref();
 
 async function findAllUsers() {
-    const chama = await findUsers();
+    const result = await findUsers();
 
-    users.value = chama
+    users.value = result
 }
 onMounted(() => {
     findAllUsers()
@@ -45,19 +45,19 @@ onMounted(() => {
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
             <div class="bg-white border border-[#e8e8e8] p-4">
                 <p class="text-[13px] text-[#64748b] mb-1">Total de Usuários</p>
-                <p class="text-[24px] text-[#0f172a]">0</p>
+                <p class="text-[24px] text-[#0f172a]">{{ users?.length}}</p>
             </div>
             <div class="bg-white border border-[#e8e8e8] p-4">
                 <p class="text-[13px] text-[#64748b] mb-1">Online Agora</p>
-                <p class="text-[24px] text-[#0f172a]">0</p>
+                <p class="text-[24px] text-[#0f172a]">-</p>
             </div>
             <div class="bg-white border border-[#e8e8e8] p-4">
                 <p class="text-[13px] text-[#64748b] mb-1">Supervisores</p>
-                <p class="text-[24px] text-[#0f172a]">0</p>
+                <p class="text-[24px] text-[#0f172a]">-</p>
             </div>
             <div class="bg-white border border-[#e8e8e8] p-4">
                 <p class="text-[13px] text-[#64748b] mb-1">Admins</p>
-                <p class="text-[24px] text-[#0f172a]">0</p>
+                <p class="text-[24px] text-[#0f172a]">-</p>
             </div>
         </div>
 
@@ -71,7 +71,7 @@ onMounted(() => {
                         <th class="text-left px-6 py-4 text-[13px] text-[#64748b] font-medium">Setor</th>
                         <th class="text-left px-6 py-4 text-[13px] text-[#64748b] font-medium">Status</th>
                         <th class="text-left px-6 py-4 text-[13px] text-[#64748b] font-medium">Membro desde</th>
-                        <th class="text-right px-6 py-4 text-[13px] text-[#64748b] font-medium">Ações</th>
+                        <th class="text-center px-6 py-4 text-[13px] text-[#64748b] font-medium">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,12 +89,14 @@ onMounted(() => {
                             <span class="text-[14px] text-[#64748b]">{{ u.email }}</span>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="px-2 py-1 rounded-full text-[12px]">
+                            <span class="py-1 rounded-full text-[12px] border px-2" 
+                            :class="u.role === 'admin'.toUpperCase() ? ' text-red-400 bg-red-100' : u.role === 'sac'.toUpperCase() ? 'text-blue-400 bg-blue-100' : 'text-neutral-400 bg-neutral-100'"
+                            >
                                 {{ u.role }}
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="text-[14px] text-[#64748b]">setor</span>
+                            <span class="text-[14px] text-[#64748b]">---</span>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-2">
@@ -103,10 +105,10 @@ onMounted(() => {
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="text-[14px] text-[#64748b]">joinDate</span>
+                            <span class="text-[14px] text-[#64748b]">{{ new Date(u.createdAt).getDate() }}/{{ new Date(u.createdAt).getMonth() }}/{{ new Date(u.createdAt).getFullYear() }}</span>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center justify-end gap-2">
+                            <div class="flex items-center justify-center gap-2">
                                 <button class="p-2 hover:bg-[#eff6ff] transition-colors rounded" title="Editar">
                                     <Edit class="w-4 h-4 text-[#64748b]" />
                                 </button>
