@@ -1,3 +1,5 @@
+import { router } from "../routes";
+import { isExpired } from "../shared/middlewares/isExpired";
 import { refreshToken } from "./authApi";
 
 interface UsersResponse {
@@ -9,8 +11,21 @@ interface UsersResponse {
 
 export async function getUsers() {
     try {
-        const accessToken = localStorage.getItem('token');
-        const user_id = localStorage.getItem('id');
+        let accessToken = localStorage.getItem('token');
+
+        if (accessToken && isExpired(accessToken)) {
+            const user_id = localStorage.getItem('id');
+
+            accessToken = await refreshToken(Number(user_id));
+            if (!accessToken) {
+                router.push('/')
+                localStorage.clear()
+
+                return
+            }
+            localStorage.setItem('token', accessToken!);
+        }
+
         const result = await fetch(`/api/users`, {
             method: 'GET',
             headers: {
@@ -18,19 +33,19 @@ export async function getUsers() {
                 'Content-Type': 'application/json'
             }
         })
-
-        if (result.status === 401) {
-            const token = await refreshToken(Number(user_id));
-
-            localStorage.setItem('token', token);
+        if (!result.ok) {
+            router.push('/')
+            localStorage.clear()
+            return
         }
-
         const resultData: UsersResponse = await result.json();
 
         return resultData
     } catch (error) {
         if (error instanceof Error) {
-            console.log(error.message)
+            // console.log(error.message)
+            router.push('/')
+            localStorage.clear()
         }
     }
 }

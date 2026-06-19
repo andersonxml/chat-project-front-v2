@@ -12,7 +12,7 @@ const viewMessage = ref(false)
     <section class="flex flex-1 relative">
         <div class="w-full h-full flex flex-col z-10">
             <div v-if="!viewMessage" class="w-full h-full flex z-5 justify-center items-center">
-                <ChatBanner />
+                <!-- <ChatBanner /> -->
             </div>
             <div v-else class="w-full h-full flex flex-col">
                 <!-- chat header -->

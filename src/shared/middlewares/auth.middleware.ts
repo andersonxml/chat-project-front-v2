@@ -7,3 +7,11 @@ export const AuthMiddleware: NavigationGuard = (to) => {
     return { path: '/' } 
   }
 }
+
+export const AuthAdminMiddleware: NavigationGuard = (to) => {
+  const isAdmin = localStorage.getItem('role')
+
+  if (to.meta.requiresAdminAuth && isAdmin !== 'admin'.toUpperCase()) {
+    return {path: '/chat'}
+  }
+}

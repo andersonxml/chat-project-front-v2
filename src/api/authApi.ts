@@ -5,6 +5,7 @@ interface LoginResponse {
     user: {
         id: number,
         email: string,
+        role: string,
         name: string,
     }
 }
@@ -12,6 +13,7 @@ const STORAGE_KEYS = {
     ID: 'id',
     NAME: 'name',
     EMAIL: 'email',
+    ROLE: 'role',
     TOKEN: 'token'
 } as const
 
@@ -35,6 +37,7 @@ export async function postLogin(data: LoginDTO): Promise<LoginResponse | false |
         localStorage.setItem(STORAGE_KEYS.ID, String(resultData.user.id))
         localStorage.setItem(STORAGE_KEYS.NAME, resultData.user.name)
         localStorage.setItem(STORAGE_KEYS.EMAIL, resultData.user.email)
+        localStorage.setItem(STORAGE_KEYS.ROLE, resultData.user.role)
         localStorage.setItem(STORAGE_KEYS.TOKEN, resultData.accessToken)
 
         return resultData
@@ -53,9 +56,11 @@ export async function refreshToken(id: number) {
         })
         // console.log(result);
         const data = await result.json();
-        console.log(data);
+        // console.log(data);
         return data
     } catch (error) {
-
+        if (error instanceof Error) {
+            console.log(error.message)
+        }
     }
 }
