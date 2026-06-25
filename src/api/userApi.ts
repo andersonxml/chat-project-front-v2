@@ -43,7 +43,45 @@ export async function getUsers() {
         return resultData
     } catch (error) {
         if (error instanceof Error) {
-            // console.log(error.message)
+            router.push('/')
+            localStorage.clear()
+        }
+    }
+}
+
+export async function getMe() {
+    try {
+        let accessToken = localStorage.getItem('token');
+
+        if (accessToken && isExpired(accessToken)) {
+            const user_id = localStorage.getItem('id');
+
+            accessToken = await refreshToken(Number(user_id));
+            if (!accessToken) {
+                router.push('/')
+                localStorage.clear()
+
+                return
+            }
+            localStorage.setItem('token', accessToken!);
+        }
+
+        const result = await fetch('/api/users/me', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+
+        const resultData = await result.json()
+
+        return ({
+            name: resultData.name,
+            email: resultData.email,
+            role: resultData.role
+        })
+    } catch (error) {
+        if (error instanceof Error) {
             router.push('/')
             localStorage.clear()
         }

@@ -2,14 +2,22 @@
 import { Building2, LogOut, Menu, MessageSquare, Search, Settings, Shield, Users, X } from '@lucide/vue';
 import { ref } from 'vue';
 import ChatContacts from './ChatContacts.vue';
+import { router } from '../../routes/index.ts';
+import { useUserStore } from '../../stores/userStores.ts';
 
+const userStores = useUserStore()
 const showSidebarNavigation = ref(false);
+
+function logout() {
+    localStorage.clear()
+    router.push('/')
+}
 
 
 </script>
 
 <template>
-    <nav class="w-2/10 h-full border-r border-[#e8e8e8] flex">
+    <nav class="w-96 h-full border-r border-[#e8e8e8] flex">
         <!-- Sidebar Navigation -->
         <section :class="[
             showSidebarNavigation
@@ -23,7 +31,7 @@ const showSidebarNavigation = ref(false);
                 <div
                     :class="[showSidebarNavigation ?
                         'translate-x-0' : '-translate-x-full',
-                        'w-2/12 h-full bg-white z-20 flex flex-col relative duration-500 transition-transform border-[#e8e8e8] border']">
+                        'w-82 h-full bg-white z-20 flex flex-col relative duration-500 transition-transform border-[#e8e8e8] border']">
                     <!-- Header -->
                     <div class="px-6 py-5 border-b border-b-[#e8e8e8] gap-4 flex flex-col w-full h-18">
                         <div class="flex items-center gap-3.5">
@@ -40,8 +48,8 @@ const showSidebarNavigation = ref(false);
                             V
                         </div>
                         <div>
-                            <p class="text-[14px] text-[#0f172a]">Você</p>
-                            <p class="text-[12px] text-[#64748b]">voce@empresa.com</p>
+                            <p class="text-[14px] text-[#0f172a]">{{ userStores.name }}</p>
+                            <p class="text-[12px] text-[#64748b]">{{ userStores.email }}</p>
                         </div>
                     </div>
                     <!-- Menus -->
@@ -56,12 +64,12 @@ const showSidebarNavigation = ref(false);
                             <Settings class="w-5 h-5" />
                             <span>Configurações</span>
                         </a>
-                        <a href="/admin"
+                        <a v-if="userStores.role === 'admin'.toUpperCase()" href="/admin"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Shield class="w-5 h-5" />
                             <span>Painel Admin</span>
                         </a>
-                        <a href="/users"
+                        <a v-if="userStores.role === 'admin'.toUpperCase()" href="/users"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Users class="w-5 h-5" />
                             <span>Usuários</span>
@@ -70,7 +78,7 @@ const showSidebarNavigation = ref(false);
                     <!-- Logout -->
 
                     <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-[#e8e8e8] px-6">
-                        <button
+                        <button v-on:click="logout"
                             class="w-full flex items-center gap-3 py-2.5 px-3 text-[14px] text-[#dc2626] hover:bg-[#fef2f2] transition-colors rounded-lg">
                             <LogOut class="w-5 h-5" />
                             <span>Sair</span>

@@ -21,18 +21,21 @@ const routes = [
   },
   {
     path: '/settings',
-    component: SettingsPage,
+    component: SettingsPage
+  },
+  {
+    path: '/admin',
+    component: AdminPage,
     meta: {
       requiresAdminAuth: true
     }
   },
   {
-    path: '/admin',
-    component: AdminPage
-  },
-  {
     path: '/users',
-    component: UsersLayout
+    component: UsersLayout,
+    meta: {
+      requiresAdminAuth: true
+    }
   },
 ]
 

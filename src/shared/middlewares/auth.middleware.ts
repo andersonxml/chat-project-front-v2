@@ -1,4 +1,5 @@
 import type { NavigationGuard } from 'vue-router'
+import { useUserStore } from '../../stores/userStores'
 
 export const AuthMiddleware: NavigationGuard = (to) => {
   const token = localStorage.getItem('token')
@@ -9,9 +10,8 @@ export const AuthMiddleware: NavigationGuard = (to) => {
 }
 
 export const AuthAdminMiddleware: NavigationGuard = (to) => {
-  const isAdmin = localStorage.getItem('role')
-
-  if (to.meta.requiresAdminAuth && isAdmin !== 'admin'.toUpperCase()) {
+  const userStores = useUserStore()
+  if (to.meta.requiresAdminAuth && userStores.role !== 'admin'.toUpperCase()) {
     return {path: '/chat'}
   }
 }

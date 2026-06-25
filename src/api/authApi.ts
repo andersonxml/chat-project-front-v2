@@ -1,5 +1,7 @@
 import type { LoginDTO } from "../dtos/AuthDTO";
 
+import { useUserStore } from "../stores/userStores";
+
 interface LoginResponse {
     accessToken: string,
     user: {
@@ -9,15 +11,9 @@ interface LoginResponse {
         name: string,
     }
 }
-const STORAGE_KEYS = {
-    ID: 'id',
-    NAME: 'name',
-    EMAIL: 'email',
-    ROLE: 'role',
-    TOKEN: 'token'
-} as const
 
 export async function postLogin(data: LoginDTO): Promise<LoginResponse | false | undefined> {
+    const userStore = useUserStore()
     try {
         const result = await fetch(`/api/auth/login`, {
             method: 'POST',
@@ -34,11 +30,13 @@ export async function postLogin(data: LoginDTO): Promise<LoginResponse | false |
 
         const resultData: LoginResponse = await result.json();
 
-        localStorage.setItem(STORAGE_KEYS.ID, String(resultData.user.id))
-        localStorage.setItem(STORAGE_KEYS.NAME, resultData.user.name)
-        localStorage.setItem(STORAGE_KEYS.EMAIL, resultData.user.email)
-        localStorage.setItem(STORAGE_KEYS.ROLE, resultData.user.role)
-        localStorage.setItem(STORAGE_KEYS.TOKEN, resultData.accessToken)
+        localStorage.setItem('token', resultData.accessToken)
+
+        userStore.setUser({
+            name: resultData.user.name,
+            email: resultData.user.email,
+            role: resultData.user.role
+        })
 
         return resultData
     } catch (error) {
