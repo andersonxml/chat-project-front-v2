@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { UseUsers } from '../../composables/useUsers';
+import { useChatStores } from '../../stores/chatStores';
 
-
+const chatStores = useChatStores()
 const { findUsers } = UseUsers();
 
 const users = ref();
@@ -17,10 +18,9 @@ onMounted(() => {
 })
 
 </script>
-
 <template>
     <section class="w-full h-full">
-        <div v-for="u in users" class="w-full py-3 duration-300 hover:bg-[#f8fafc] px-6 flex items-center gap-3">
+        <div @click="chatStores.setUserSelected({name: u.name, role: u.role})" v-for="u in users" class="w-full py-3 duration-300 hover:bg-[#f8fafc] px-6 flex items-center gap-3">
             <div class="relative">
                 <div class="w-12 h-12 bg-[#cbd5e1] rounded-full flex justify-center items-center">
                     a

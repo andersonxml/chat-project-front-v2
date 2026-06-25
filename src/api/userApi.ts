@@ -1,5 +1,6 @@
 import { router } from "../routes";
 import { isExpired } from "../shared/middlewares/isExpired";
+import { useUserStore } from "../stores/userStores";
 import { refreshToken } from "./authApi";
 
 interface UsersResponse {

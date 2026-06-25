@@ -17,10 +17,14 @@ export const useUserStore = defineStore('user', {
             this.email = user.email;
             this.role = user.role;
         },
+
         async loadUser() {
-            const user = await getMe()
-            
-            this.setUser(user!);
+            const token = localStorage.getItem('token')
+            if (token) {
+                const user = await getMe()
+                this.setUser(user!);
+            }
+
         }
     }
 })

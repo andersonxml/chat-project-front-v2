@@ -2,12 +2,18 @@
 import { Plus } from '@lucide/vue';
 import ButtonBack from '../ButtonBack.vue';
 import UsersFilters from './UsersFilters.vue';
+import UsersCreate from './UsersCreate.vue';
 
+import { useCreateUserStores } from '../../stores/createUserStores.ts';
+
+
+const createUserStores = useCreateUserStores();
 </script>
 
 <template>
-    <main class="w-full h-full py-4 bg-[#f8fafc]">
-        <div class="max-w-7xl mx-auto">
+    <main class="w-full h-full overflow-hidden relative bg-[#f8fafc]">
+        <UsersCreate v-if="createUserStores.showMenuCreateUser === true"/>
+        <div class="max-w-7xl mx-auto py-4">
             <div class="flex-1 overflow-y-auto">
                 <div class="max-w-7xl mx-auto py-8">
                     <div class="mb-8">
@@ -19,7 +25,7 @@ import UsersFilters from './UsersFilters.vue';
                                     Monitore e gerencie o sistema
                                 </p>
                             </div>
-                            <button class="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1e40af] text-white text-[14px] hover:bg-[#1e3a8a] transition-colors whitespace-nowrap">
+                            <button @click="createUserStores.setShowMenuCreateUser(true)" class="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1e40af] text-white text-[14px] hover:bg-[#1e3a8a] transition-colors whitespace-nowrap">
                                 <Plus class="w-4 h-4" />
                                 <span class="hidden sm:inline">Novo Usuário</span>
                             </button>

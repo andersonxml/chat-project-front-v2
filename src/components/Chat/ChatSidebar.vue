@@ -4,13 +4,13 @@ import { ref } from 'vue';
 import ChatContacts from './ChatContacts.vue';
 import { router } from '../../routes/index.ts';
 import { useUserStore } from '../../stores/userStores.ts';
+import { postLogout } from '../../api/authApi.ts';
 
 const userStores = useUserStore()
 const showSidebarNavigation = ref(false);
 
 function logout() {
-    localStorage.clear()
-    router.push('/')
+    postLogout()
 }
 
 

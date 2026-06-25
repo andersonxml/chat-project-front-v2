@@ -9,9 +9,13 @@ export const AuthMiddleware: NavigationGuard = (to) => {
   }
 }
 
-export const AuthAdminMiddleware: NavigationGuard = (to) => {
+export const AuthAdminMiddleware: NavigationGuard = async (to) => {
   const userStores = useUserStore()
-  if (to.meta.requiresAdminAuth && userStores.role !== 'admin'.toUpperCase()) {
+  if(!userStores.role) {
+    await userStores.loadUser()
+  }
+
+  if (to.meta.requiresAdminAuth && userStores.role !== 'ADMIN'.toUpperCase()) {
     return {path: '/chat'}
   }
 }

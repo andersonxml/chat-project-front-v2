@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Shield } from '@lucide/vue';
+import { Eye, EyeClosed, Shield } from '@lucide/vue';
 import { ref } from 'vue';
 import { UseAuth } from '../../composables/useAuth';
 import { router } from '../../routes';
@@ -8,6 +8,7 @@ const { login } = UseAuth();
 
 const email = ref('');
 const password = ref('');
+const showPassword = ref(false)
 const credentialsErro = ref(false)
 const blockedSendLogin = ref(false)
 
@@ -61,9 +62,14 @@ async function emitLogin() {
             <label htmlFor="password" class="text-[13px] text-[#475569] block">
               Senha
             </label>
-            <input v-model="password"
+            <div
               :class="[credentialsErro ? 'border-amber-500 animate-pulse' : 'focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]']"
-              class="w-full px-4 py-2.5 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none transition-colors" />
+              class="w-full flex items-center px-2 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none transition-colors">
+              <input v-model="password" :type="showPassword ? 'text' : 'password'"
+                class="flex flex-1 px-2 py-2.5 text-[14px] text-[#0f172a] focus:outline-none transition-colors" />
+              <Eye v-if="showPassword" @click="showPassword = false" class="" />
+              <EyeClosed v-else @click="showPassword = true" class="" />
+            </div>
           </div>
 
           <p v-show="credentialsErro" class="text-[12px] animate-pulse text-amber-500">Verifique as credenciais de

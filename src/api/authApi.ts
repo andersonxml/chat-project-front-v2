@@ -1,4 +1,5 @@
 import type { LoginDTO } from "../dtos/AuthDTO";
+import { router } from "../routes";
 
 import { useUserStore } from "../stores/userStores";
 
@@ -46,15 +47,37 @@ export async function postLogin(data: LoginDTO): Promise<LoginResponse | false |
     }
 }
 
-export async function refreshToken(id: number) {
+export async function refreshToken() {
     try {
-        const result = await fetch(`/api/auth/refresh/${id}`, {
+        const result = await fetch(`/api/auth/refresh`, {
             method: 'POST',
             credentials: "include"
         })
-        // console.log(result);
+
         const data = await result.json();
-        // console.log(data);
+
+        return data
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(error.message)
+        }
+    }
+}
+
+export async function postLogout() {
+    try {
+        const result = await fetch(`/api/auth/logout`, {
+            method: 'POST',
+            credentials: "include"
+        })
+
+        if (!result.ok) {
+            router.push('/')
+        }
+
+        const data = result.json()
+
+        router.push('/')
         return data
     } catch (error) {
         if (error instanceof Error) {

@@ -15,7 +15,11 @@ const userStores = useUserStore()
 const token = localStorage.getItem('token')
 
 if( token) {
-     await userStores.loadUser()
+     try {
+          await userStores.loadUser()
+     } catch {
+          localStorage.removeItem('token')
+     }
 }
 
 app.mount('#app')

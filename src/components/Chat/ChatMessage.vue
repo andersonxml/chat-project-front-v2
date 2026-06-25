@@ -2,28 +2,30 @@
 import { ref } from 'vue';
 import ChatBanner from './ChatBanner.vue';
 import { Send } from '@lucide/vue';
+import { useChatStores } from '../../stores/chatStores.ts';
 
-
-const viewMessage = ref(false)
+const chatStores = useChatStores()
 
 </script>
 
 <template>
     <section class="flex flex-1 relative">
         <div class="w-full h-full flex flex-col z-10">
-            <div v-if="!viewMessage" class="w-full h-full flex z-5 justify-center items-center">
+            <div v-if="!chatStores.userSelected" class="w-full h-full flex z-5 justify-center items-center">
                 <!-- <ChatBanner /> -->
             </div>
             <div v-else class="w-full h-full flex flex-col">
                 <!-- chat header -->
                 <div
-                    class="h-16 md:h-18 bg-[#f8fafc] border-b border-[#e8e8e8] px-3 md:px-4 flex items-center justify-between">
+                    class="h-16 md:h-18 bg-[#f8fafc] border-b border-[#e8e8e8] px-3 md:px-4 flex items-center gap-4">
                     <div class="relative">
                         <div class="w-10 h-10 bg-[#cbd5e1] rounded-full flex justify-center items-center">
                             a
                         </div>
-                        <div
-                            class="bg-emerald-500 absolute bottom-0 right-0 w-3.5 h-3.5 border-2 border-white rounded-full" />
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-[15px]">{{ chatStores.userSelected }}</p>
+                        <p class="text-[11px] text-neutral-600">{{ chatStores.userSelectedRole }}</p>
                     </div>
                 </div>
                 <!-- chat body -->
