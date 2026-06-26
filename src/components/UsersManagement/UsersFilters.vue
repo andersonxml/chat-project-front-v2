@@ -61,7 +61,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="bg-white border border-[#e8e8e8] rounded-lg overflow-hidden overflow-x-auto">
+        <div class="bg-white border border-[#e8e8e8] rounded-lg h-96 overflow-y-scroll">
             <table class="w-full min-w-[800px]">
                 <thead class="bg-[#f8fafc] border-b border-[#e8e8e8]">
                     <tr>

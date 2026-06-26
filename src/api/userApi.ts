@@ -55,9 +55,7 @@ export async function getMe() {
         let accessToken = localStorage.getItem('token');
 
         if (accessToken && isExpired(accessToken)) {
-            const user_id = localStorage.getItem('id');
-
-            accessToken = await refreshToken(Number(user_id));
+            accessToken = await refreshToken();
             if (!accessToken) {
                 router.push('/')
                 localStorage.clear()

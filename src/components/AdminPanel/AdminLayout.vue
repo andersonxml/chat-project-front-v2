@@ -9,7 +9,7 @@ import AdminSystemHealth from './AdminSystemHealth.vue';
 
 <template>
     <main class="w-full h-auto py-4 bg-[#f8fafc]">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <div class="flex-1 overflow-y-auto">
                 <div class="max-w-7xl mx-auto py-8">
                     <div class="mb-8">

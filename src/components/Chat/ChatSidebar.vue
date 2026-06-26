@@ -2,7 +2,6 @@
 import { Building2, LogOut, Menu, MessageSquare, Search, Settings, Shield, Users, X } from '@lucide/vue';
 import { ref } from 'vue';
 import ChatContacts from './ChatContacts.vue';
-import { router } from '../../routes/index.ts';
 import { useUserStore } from '../../stores/userStores.ts';
 import { postLogout } from '../../api/authApi.ts';
 

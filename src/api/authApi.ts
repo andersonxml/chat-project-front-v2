@@ -1,5 +1,6 @@
-import type { LoginDTO } from "../dtos/AuthDTO";
+import type { LoginDTO, RegisterDTO } from "../dtos/AuthDTO";
 import { router } from "../routes";
+import { isExpired } from "../shared/middlewares/isExpired";
 
 import { useUserStore } from "../stores/userStores";
 
@@ -10,6 +11,42 @@ interface LoginResponse {
         email: string,
         role: string,
         name: string,
+    }
+}
+
+export async function postRegister(data: RegisterDTO) {
+    try {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken && isExpired(accessToken)) {
+            accessToken = await refreshToken();
+            if (!accessToken) {
+                router.push('/')
+                localStorage.clear()
+
+                return
+            }
+            localStorage.setItem('token', accessToken!);
+        }
+
+        const result = await fetch(`/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                role: data.role,
+            })
+        })
+
+        const resultData = await result.json();
+        
+        return resultData.message
+    } catch (error) {
+
     }
 }
 

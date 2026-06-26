@@ -67,8 +67,8 @@ async function emitLogin() {
               class="w-full flex items-center px-2 border border-[#cbd5e1] text-[14px] text-[#0f172a] focus:outline-none transition-colors">
               <input v-model="password" :type="showPassword ? 'text' : 'password'"
                 class="flex flex-1 px-2 py-2.5 text-[14px] text-[#0f172a] focus:outline-none transition-colors" />
-              <Eye v-if="showPassword" @click="showPassword = false" class="" />
-              <EyeClosed v-else @click="showPassword = true" class="" />
+              <Eye v-if="showPassword" @click="showPassword = false" class="" :size="20" />
+              <EyeClosed v-else @click="showPassword = true" class="" :size="20"/>
             </div>
           </div>
 

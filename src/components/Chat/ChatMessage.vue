@@ -3,9 +3,10 @@ import { ref } from 'vue';
 import ChatBanner from './ChatBanner.vue';
 import { Send } from '@lucide/vue';
 import { useChatStores } from '../../stores/chatStores.ts';
+import { useUserStore } from '../../stores/userStores.ts';
 
-const chatStores = useChatStores()
-
+const chatStores = useChatStores();
+const userStores = useUserStore();
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const chatStores = useChatStores()
                         </div>
                     </div>
                     <div class="flex flex-col">
-                        <p class="text-[15px]">{{ chatStores.userSelected }}</p>
+                        <p class="text-[15px] flex gap-1">{{ chatStores.userSelected }} <p v-if="userStores.name === chatStores.userSelected">(você)</p></p>
                         <p class="text-[11px] text-neutral-600">{{ chatStores.userSelectedRole }}</p>
                     </div>
                 </div>
