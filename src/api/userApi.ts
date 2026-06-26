@@ -1,13 +1,13 @@
 import { router } from "../routes";
 import { isExpired } from "../shared/middlewares/isExpired";
-import { useUserStore } from "../stores/userStores";
 import { refreshToken } from "./authApi";
 
-interface UsersResponse {
+type UsersResponse = {
     name: string,
     email: string,
-    createdAt: Date,
-    updatedAt: Date,
+    role: string,
+    createdAt: string,
+    updatedAt: string,
 }
 
 export async function getUsers() {
@@ -15,9 +15,7 @@ export async function getUsers() {
         let accessToken = localStorage.getItem('token');
 
         if (accessToken && isExpired(accessToken)) {
-            const user_id = localStorage.getItem('id');
-
-            accessToken = await refreshToken(Number(user_id));
+            accessToken = await refreshToken();
             if (!accessToken) {
                 router.push('/')
                 localStorage.clear()
@@ -39,7 +37,7 @@ export async function getUsers() {
             localStorage.clear()
             return
         }
-        const resultData: UsersResponse = await result.json();
+        const resultData: UsersResponse[] = await result.json();
 
         return resultData
     } catch (error) {

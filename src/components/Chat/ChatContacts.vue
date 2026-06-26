@@ -27,7 +27,7 @@ onMounted(() => {
                 <div class="w-12 h-12 bg-[#cbd5e1] rounded-full flex justify-center items-center">
                     a
                 </div>
-                <div :class="[ u.status ? 'bg-emerald-500' : 'bg-red-500', 'absolute bottom-0 right-0 w-3.5 h-3.5 border-2 border-white rounded-full']" />
+                <!-- <div :class="[ u.status ? 'bg-emerald-500' : 'bg-red-500', 'absolute bottom-0 right-0 w-3.5 h-3.5 border-2 border-white rounded-full']" /> -->
             </div>
             <div class="flex flex-1 flex-col justify-between mb-1">
                 <p class="text-[14px] text-[#0f172a] flex gap-1">{{ u.name }} <p v-if="userStores.name === u.name">(você)</p></p>

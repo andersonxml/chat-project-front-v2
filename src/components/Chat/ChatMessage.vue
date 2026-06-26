@@ -32,10 +32,12 @@ const userStores = useUserStore();
                 <!-- chat body -->
                 <div class="flex flex-1"></div>
                 <!-- chat footer -->
-                <div class="w-full h-20 py-4 bg-[#f8fafc] flex justify-center items-center border-t border-[#e8e8e8]">
-                    <div class="w-3/4 h-full flex items-center justify-center gap-3">
-                        <div class="w-4/5 h-full border rounded-4xl border-[#e8e8e8] bg-white">
-    
+                <div class="w-full h-20 bg-[#f8fafc] flex justify-center items-center border-t border-[#e8e8e8]">
+                    <div class="w-3/4 h-full flex items-center justify-center gap-3 overflow-hidden">
+                        <div class="w-4/5 max-h-18 min-h-11 bg-white border overflow-hidden flex items-center border-[#e8e8e8] rounded-4xl">
+                            <textarea class="w-full max-h-18 min-h-6 px-2 outline-none no-scrollbar">
+        
+                            </textarea>
                         </div>
                         <button type="submit"
                             className="w-11 h-11 bg-[#1e40af] text-white rounded-full hover:bg-[#1e3a8a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center flex-shrink-0">

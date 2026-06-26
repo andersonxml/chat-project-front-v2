@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Building2, LogOut, Menu, MessageSquare, Search, Settings, Shield, Users, X } from '@lucide/vue';
+import { Building2, LogOut, Menu, MessageSquare, Search, Shield, Users, X } from '@lucide/vue';
 import { ref } from 'vue';
 import ChatContacts from './ChatContacts.vue';
 import { useUserStore } from '../../stores/userStores.ts';
@@ -58,11 +58,6 @@ function logout() {
                             <MessageSquare class="w-5 h-5" />
                             <span>Conversas</span>
                         </a>
-                        <a href="/settings"
-                            class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
-                            <Settings class="w-5 h-5" />
-                            <span>Configurações</span>
-                        </a>
                         <a v-if="userStores.role === 'admin'.toUpperCase()" href="/admin"
                             class="w-full flex items-center gap-3 px-3 py-2.5 text-[14px] hover:bg-[#f8fafc] transition-colors rounded-lg">
                             <Shield class="w-5 h-5" />
@@ -100,7 +95,7 @@ function logout() {
                 <div class="w-full rounded-lg overflow-hidden border-[#e8e8e8] border flex items-center bg-[#f8fafc]">
                     <Search class="text-[#64748b] w-5 h-5 ml-2" />
                     <input placeholder="Buscar conversas." class="flex flex-1 py-1 outline-0 px-2 text-[14px]"
-                        type="text">
+                        type="text" disabled>
                 </div>
             </div>
 

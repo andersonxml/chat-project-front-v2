@@ -5,7 +5,7 @@ import ChatSidebar from './ChatSidebar.vue';
 </script>
 
 <template>
-    <main class="w-full h-full flex">
+    <main class="w-full h-full flex overflow-hidden">
         <ChatSidebar/>
         <ChatMessage/>
     </main>

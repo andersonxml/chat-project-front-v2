@@ -1,41 +1,61 @@
 <script setup lang="ts">
 import { Edit, Mail, Search, UserX } from '@lucide/vue';
 import { UseUsers } from '../../composables/useUsers';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const { findUsers } = UseUsers();
+const userSearch = ref('');
 
-const users = ref();
+type UsersResponse = {
+    name: string,
+    email: string,
+    role: string,
+    createdAt: string,
+    updatedAt: string,
+}
+
+const users = ref<UsersResponse[]>([]);
+
+const filteredUsers = computed(() => {
+    const search = userSearch.value.toLowerCase().trim();
+
+    if (!search) return users.value;
+
+    return users.value.filter(user =>
+        user.name.toLowerCase().includes(search)
+    );
+});
 
 async function findAllUsers() {
     const result = await findUsers();
 
+    if(!result) return
     users.value = result
 }
+
 onMounted(() => {
     findAllUsers()
 })
 
 </script>
-
 <template>
     <section class="flex flex-col gap-10">
         <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
             <div class="flex-1 relative">
                 <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748b]" />
-                <input type="text" placeholder="Buscar por nome, email ou departamento..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-[#e2e8f0] text-[14px] text-[#0f172a]
+                <input v-model="userSearch" type="text" placeholder="Buscar por nome, email ou departamento..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-[#e2e8f0] text-[14px] text-[#0f172a]
                 placeholder:text-[#94a3b8] focus:outline-none focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]
                 transition-colors" />
             </div>
             <select class="px-4 py-2.5 bg-white border border-[#e2e8f0] text-[14px] text-[#0f172a] focus:outline-none
-                focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]">
+                focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]" disabled>
                 <option>Todos os cargos</option>
                 <option>Admin</option>
                 <option>Supervisor</option>
                 <option>SAC</option>
             </select>
             <select class="px-4 py-2.5 bg-white border border-[#e2e8f0] text-[14px] text-[#0f172a] focus:outline-none
-                focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]">
+                focus:border-[#1e40af] focus:ring-1 focus:ring-[#1e40af]" disabled>
                 <option>Todos os status</option>
                 <option>Online</option>
                 <option>Offline</option>
@@ -61,7 +81,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="bg-white border border-[#e8e8e8] rounded-lg h-96 overflow-y-scroll">
+        <div class="bg-white border border-[#e8e8e8] rounded-lg h-96 overflow-y-scroll no-scrollbar">
             <table class="w-full min-w-[800px]">
                 <thead class="bg-[#f8fafc] border-b border-[#e8e8e8]">
                     <tr>
@@ -75,7 +95,7 @@ onMounted(() => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="u in users" class="border-b border-[#f1f5f9] hover:bg-[#f8fafc] transition-colors">
+                    <tr v-for="u in filteredUsers" class="border-b border-[#f1f5f9] hover:bg-[#f8fafc] transition-colors">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div

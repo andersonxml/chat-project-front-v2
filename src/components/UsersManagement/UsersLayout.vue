@@ -6,14 +6,13 @@ import UsersCreate from './UsersCreate.vue';
 
 import { useCreateUserStores } from '../../stores/createUserStores.ts';
 
-
 const createUserStores = useCreateUserStores();
 </script>
 
 <template>
     <main class="w-full h-full overflow-hidden relative bg-[#f8fafc]">
         <UsersCreate v-if="createUserStores.showMenuCreateUser === true"/>
-        <div class="max-w-7xl mx-auto py-4">
+        <div class="xl:max-w-7xl lg:max-w-5xl md:max-w-3xl mx-auto py-4">
             <div class="flex-1 overflow-y-auto">
                 <div class="max-w-7xl mx-auto py-8">
                     <div class="mb-8">

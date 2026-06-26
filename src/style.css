@@ -12,3 +12,8 @@ html {
 
     font-family: "Fustat", sans-serif;
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+    width: 0;
+}
